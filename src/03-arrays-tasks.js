@@ -239,8 +239,14 @@ function toArrayOfSquares(arr) {
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
 function getMovingSum(arr) {
+  const array = arr;
   const res = [];
-  arr.reduce((acc, cur) => { acc += cur; res.push(acc); return acc; }, 0);
+  let acc = 0;
+  array.reduce((prev, cur) => {
+    acc = prev + cur;
+    res.push(acc);
+    return acc;
+  }, 0);
   return res;
 }
 
@@ -276,9 +282,7 @@ function getSecondItems(arr) {
  */
 function propagateItemsByPositionIndex(arr) {
   const res = [];
-  arr.map((item, index) => {
-    res.push(Array(index + 1).fill(item));
-  });
+  arr.map((item, index) => res.push(Array(index + 1).fill(item)));
   return res.flat();
 }
 
@@ -315,7 +319,7 @@ function get3TopItems(arr) {
  *   [ 1, '2' ] => 1
  */
 function getPositivesCount(arr) {
-  return arr.filter(item => typeof item === 'number' && item > 0).length;
+  return arr.filter((item) => typeof item === 'number' && item > 0).length;
 }
 
 /**
@@ -365,7 +369,7 @@ function getItemsSum(arr) {
  *  [ null, undefined, NaN, false, 0, '' ]  => 6
  */
 function getFalsyValuesCount(arr) {
-  return arr.filter(item => Boolean(item) === false).length;
+  return arr.filter((item) => Boolean(item) === false).length;
 }
 
 /**
@@ -383,8 +387,11 @@ function getFalsyValuesCount(arr) {
  *    [ true, 0, 1, 'true' ], true => 1
  */
 function findAllOccurrences(arr, item) {
-  count = 0;
-  arr.map(el => { if (el === item) count++ });
+  let count = 0;
+  arr.map((el) => {
+    if (el === item) count += 1;
+    return count;
+  });
   return count;
 }
 
@@ -444,7 +451,8 @@ function sortCitiesArray(arr) {
     if (a.city > b.city) {
       return 1;
     }
-  })
+    return undefined;
+  });
 }
 
 /**
@@ -467,16 +475,15 @@ function sortCitiesArray(arr) {
  */
 function getIdentityMatrix(n) {
   const arr1 = new Array(n).fill(Array(n).fill(0));
-  return arr1.map((item, index) => {
-    return item.map((el, ind) => {
-      if (index === ind) {
-        el = 1;
-      } else {
-        el = 0;
-      }
-      return el;
-    })
-  })
+  return arr1.map((item, index) => item.map((el, ind) => {
+    let elem = el;
+    if (index === ind) {
+      elem = 1;
+    } else {
+      elem = 0;
+    }
+    return elem;
+  }));
 }
 
 
@@ -496,11 +503,12 @@ function getIdentityMatrix(n) {
 function getIntervalArray(start, end) {
   let i = start;
   return Array(end - start + 1).fill(start).map((item, index) => {
+    let el = item;
     if (index !== 0) {
-      i++;
-      item = i;
+      i += 1;
+      el = i;
     }
-    return item;
+    return el;
   });
 }
 
@@ -553,7 +561,7 @@ function distinct(arr) {
  */
 function group(array, keySelector, valueSelector) {
   const map = new Map();
-  array.map(item => {
+  array.map((item) => {
     let value = [];
     if (map.has(keySelector(item))) {
       value = map.get(keySelector(item));
@@ -562,6 +570,7 @@ function group(array, keySelector, valueSelector) {
       value = [valueSelector(item)];
     }
     map.set(keySelector(item), value);
+    return undefined;
   });
   return map;
 }
@@ -599,7 +608,7 @@ function selectMany(arr, childrenSelector) {
  */
 function getElementByIndexes(arr, indexes) {
   let res = arr;
-  indexes.map(item => {
+  indexes.map((item) => {
     res = res.at(item);
     return res;
   });
