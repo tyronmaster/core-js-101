@@ -116,54 +116,67 @@ function fromJSON(proto, json) {
  */
 
 const cssSelectorBuilder = {
-  element(value) {
-    const el = new Elem(value);
-    return el;
+  element(/* value */) {
+    throw new Error('Not implemented');
+
+    // const el = new Elem(value);
+    // return el;
   },
 
-  id(value) {
-    const ids = new Elem(`#${value}`);
-    return ids;
+  id(/* value */) {
+    throw new Error('Not implemented');
+
+    // const ids = new Elem(`#${value}`);
+    // return ids;
   },
 
-  class(value) {
-    const cl = new Elem(`.${value}`);
-    return cl;
+  class(/* value */) {
+    throw new Error('Not implemented');
+
+    // const cl = new Elem(`.${value}`);
+    // return cl;
   },
 
-  attr(value) {
-    const atr = new Elem(`[${value}]`);
-    return atr;
+  attr(/* value */) {
+    throw new Error('Not implemented');
+
+    // const atr = new Elem(`[${value}]`);
+    // return atr;
   },
 
-  pseudoClass(value) {
-    const psecl = new Elem(`:${value}`);
-    return psecl;
+  pseudoClass(/* value */) {
+    throw new Error('Not implemented');
+
+    // const psecl = new Elem(`:${value}`);
+    // return psecl;
   },
 
-  pseudoElement(value) {
-    const pseel = new Elem(`::${value}`);
-    return pseel;
+  pseudoElement(/* value */) {
+    throw new Error('Not implemented');
+
+    // const pseel = new Elem(`::${value}`);
+    // return pseel;
   },
 
-  combine(selector1, combinator, selector2) {
+  combine(/* selector1, combinator, selector2 */) {
+    throw new Error('Not implemented');
 
-    const comb = new Elem(`${selector1}${combinator}${selector2}`);
-    return comb;
+    // const comb = new Elem(`${selector1}${combinator}${selector2}`);
+    // return comb;
   },
 
-}
-class Elem {
-  constructor(value) {
-    this.value = value;
-    return this;
-  }
-  stringify() {
-    this.value = this.value.toString();
-    return this.value;
-  }
-}
-Object.assign(cssSelectorBuilder, Elem);
+};
+// class Elem {
+//   constructor(value) {
+//     this.value = value;
+//     return this;
+//   }
+//   stringify() {
+//     this.value = this.value.toString();
+//     return this.value;
+//   }
+// }
+// Object.assign(cssSelectorBuilder, Elem);
 
 module.exports = {
   Rectangle,
