@@ -33,6 +33,7 @@ function willYouMarryMe(isPositiveAnswer) {
     if (isPositiveAnswer) return res('Hooray!!! She said "Yes"!');
     if (isPositiveAnswer === false) return res('Oh no, she said "No".');
     if (typeof isPositiveAnswer !== 'boolean' || !isPositiveAnswer) return rej(new Error('Wrong parameter is passed! Ask her again.'));
+    return undefined;
   });
 }
 
@@ -97,7 +98,7 @@ function getFastestPromise(array) {
  *
  */
 function chainPromises(array, action) {
-  const newArr = array.map(async item => await item);
+  const newArr = array.map(async item => { item });
   return new Promise(newArr.reduce((prev, cur) => action(prev, cur)));
 }
 

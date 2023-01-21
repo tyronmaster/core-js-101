@@ -159,7 +159,7 @@ class Elem {
     return this;
   }
   stringify() {
-    this.value = this.value.toString()
+    this.value = this.value.toString();
     return this.value;
   }
 }
