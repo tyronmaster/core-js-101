@@ -20,9 +20,13 @@
  *    console.log(r.height);      // => 20
  *    console.log(r.getArea());   // => 200
  */
-function Rectangle(/* width, height */) {
-  throw new Error('Not implemented');
+function Rectangle(width, height) {
+  this.width = width;
+  this.height = height;
 }
+Rectangle.prototype.getArea = function getArea() {
+  return this.width * this.height;
+};
 
 
 /**
@@ -35,8 +39,8 @@ function Rectangle(/* width, height */) {
  *    [1,2,3]   =>  '[1,2,3]'
  *    { width: 10, height : 20 } => '{"height":10,"width":20}'
  */
-function getJSON(/* obj */) {
-  throw new Error('Not implemented');
+function getJSON(obj) {
+  return JSON.stringify(obj);
 }
 
 
@@ -51,8 +55,9 @@ function getJSON(/* obj */) {
  *    const r = fromJSON(Circle.prototype, '{"radius":10}');
  *
  */
-function fromJSON(/* proto, json */) {
-  throw new Error('Not implemented');
+function fromJSON(proto, json) {
+  // return Object.create(proto, JSON.parse(json));
+  return Object.setPrototypeOf(JSON.parse(json), proto);
 }
 
 
@@ -111,35 +116,54 @@ function fromJSON(/* proto, json */) {
  */
 
 const cssSelectorBuilder = {
-  element(/* value */) {
-    throw new Error('Not implemented');
+  element(value) {
+    const el = new Elem(value);
+    return el;
   },
 
-  id(/* value */) {
-    throw new Error('Not implemented');
+  id(value) {
+    const ids = new Elem(`#${value}`);
+    return ids;
   },
 
-  class(/* value */) {
-    throw new Error('Not implemented');
+  class(value) {
+    const cl = new Elem(`.${value}`);
+    return cl;
   },
 
-  attr(/* value */) {
-    throw new Error('Not implemented');
+  attr(value) {
+    const atr = new Elem(`[${value}]`);
+    return atr;
   },
 
-  pseudoClass(/* value */) {
-    throw new Error('Not implemented');
+  pseudoClass(value) {
+    const psecl = new Elem(`:${value}`);
+    return psecl;
   },
 
-  pseudoElement(/* value */) {
-    throw new Error('Not implemented');
+  pseudoElement(value) {
+    const pseel = new Elem(`::${value}`);
+    return pseel;
   },
 
-  combine(/* selector1, combinator, selector2 */) {
-    throw new Error('Not implemented');
-  },
-};
+  combine(selector1, combinator, selector2) {
 
+    const comb = new Elem(`${selector1}${combinator}${selector2}`);
+    return comb;
+  },
+
+}
+class Elem {
+  constructor(value) {
+    this.value = value;
+    return this;
+  }
+  stringify() {
+    this.value = this.value.toString()
+    return this.value;
+  }
+}
+Object.assign(cssSelectorBuilder, Elem);
 
 module.exports = {
   Rectangle,
